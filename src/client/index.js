@@ -3,11 +3,12 @@ import ReactDom from 'react-dom'
 import createLogger from 'redux-logger'
 import thunk from 'redux-thunk'
 import { createStore, applyMiddleware } from 'redux'
-import { Provider } from 'react-redux'                                                                                                                                                    
+import { Provider } from 'react-redux'
 import {storeStateMiddleWare} from './middleware/storeStateMiddleWare'
 import reducer from './reducers'
 import App from './containers/app'
 import {alert} from './actions/alert'
+//import io from 'socket.io-client'
 
 const initialState = {}
 
@@ -24,3 +25,7 @@ ReactDom.render((
 ), document.getElementById('tetris'))
 
 store.dispatch(alert('Soon, will be here a fantastic Tetris ...'))
+
+const io = require('socket.io-client');
+const socket = io('http://0.0.0.0:3004');
+socket.emit('action', {type: 'server/ping'});
