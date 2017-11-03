@@ -1,5 +1,7 @@
+export const SOCKET_PING = 'server/ping';
+
 export const ping = () => {
   return {
-    type: 'server/ping'
+    type: SOCKET_PING
   }
 }

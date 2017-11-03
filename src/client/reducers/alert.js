@@ -5,6 +5,8 @@ const reducer = (state = {} , action) => {
   switch(action.type){
     case ALERT_POP:
       return { message: action.message }
+    case SOCKET_PING:
+        return { message: action.message }
     default:
       return state
   }
