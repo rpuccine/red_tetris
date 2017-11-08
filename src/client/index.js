@@ -33,3 +33,18 @@ const socket = io('http://0.0.0.0:3004');
 store.dispatch(ping());
 
 socket.emit('action', {type: 'server/ping'});
+
+function curry(nb_arg, func) {
+	var expect_arg = nb_arg;
+	return function recurse() {
+		if (arguments.length >= expect_arg) {
+			func.apply(null, arguments);
+		}
+		return recurse.bind(null, arguments);
+	};
+}
+
+var curry_add = curry(3,() => console.log("toto"));
+curry_add(1,2)(3);
+curry_add(2)(3)(1);
+curry_add(2)(3);
