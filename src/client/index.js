@@ -34,17 +34,30 @@ store.dispatch(ping());
 
 socket.emit('action', {type: 'server/ping'});
 
+function sum() {
+    var args = [...arguments];
+    var doubles = args.map(function(x) {
+        return x * 2;
+    });
+    console.log(doubles);
+}
+
 function curry(nb_arg, func) {
 	var expect_arg = nb_arg;
 	return function recurse() {
-		if (arguments.length >= expect_arg) {
-			func.apply(null, arguments);
+        var args = [...arguments];
+        if (args.length >= expect_arg) {
+			func.apply(null, args);
+            return ;
 		}
-		return recurse.bind(null, arguments);
+        console.log("ret curse with " + args + ' ** ' + args.length);
+        console.dir(args);
+		return recurse.bind(null, args);
 	};
 }
 
-var curry_add = curry(3,() => console.log("toto"));
-curry_add(1,2)(3);
-curry_add(2)(3)(1);
-curry_add(2)(3);
+var curry_add = curry(3, sum);
+curry_add(1,2,3);
+curry_add(4,5)(6);
+curry_add(7)(8)(9);
+curry_add(10)(11);
