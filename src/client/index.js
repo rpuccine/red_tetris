@@ -30,7 +30,7 @@ store.dispatch(alert('Soon, will be here a fantastic Tetris ...'))
 const io = require('socket.io-client');
 const socket = io('http://0.0.0.0:3004');
 
-store.dispatch(ping());
+//store.dispatch(ping());
 
 socket.emit('action', {type: 'server/ping'});
 
@@ -43,16 +43,13 @@ function sum() {
 }
 
 function curry(nb_arg, func) {
-	var expect_arg = nb_arg;
 	return function recurse() {
         var args = [...arguments];
-        if (args.length >= expect_arg) {
+        if (args.length >= nb_arg) {
 			func.apply(null, args);
             return ;
 		}
-        console.log("ret curse with " + args + ' ** ' + args.length);
-        console.dir(args);
-		return recurse.bind(null, args);
+		return recurse.bind(null, ...args);
 	};
 }
 
